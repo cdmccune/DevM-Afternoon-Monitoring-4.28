@@ -25,16 +25,16 @@ try{
 
 app.get('/criticalerror', () => {
     try{
-        criticalerror()
+        criticalerrors()
     } catch(error){
-        rollbar.error(error)
+        rollbar.criticalerror(error)
     }})
 
 app.get('/warning', () => {
 try{
-    warning()
+    warnings()
 } catch(error){
-    rollbar.error(error)
+    rollbar.warning(error)
 }})
 
 
