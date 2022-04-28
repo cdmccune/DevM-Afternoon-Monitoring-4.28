@@ -16,18 +16,30 @@ var rollbar = new Rollbar({
   captureUnhandledRejections: true,
 })
 
-app.get('/test', () => {try{
+app.get('/test', () => {
+try{
     banana()
-} catch(error){rollbar.error(error)}})
+} catch(error){
+    rollbar.error(error)
+}})
+
+app.get('/criticalerror', () => {
+    try{
+        criticalerror()
+    } catch(error){
+        rollbar.error(error)
+    }})
+
+app.get('/warning', () => {
+try{
+    warning()
+} catch(error){
+    rollbar.error(error)
+}})
 
 
 // record a generic message and send it to Rollbar
 rollbar.log('Hello world!')
-
-// app.get("/error", (req, res) => {
-//     rollbar.error('This is an error')
-//     res.status(400).send('this is an error')
-// })
 
 app.use(express.json())
 
