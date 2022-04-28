@@ -50,6 +50,7 @@ app.post('/api/movie', (req,res)=> {
     name = name.trim()
 
     const index = movies.findIndex(movieName => movieName === name)
+    console.log('hi')
 
     if(index===-1 && name!==''){
         movies.push(name)
@@ -57,7 +58,7 @@ app.post('/api/movie', (req,res)=> {
         res.status(200).send(movies)
     } else if (name === "") {
         rollbar.error('No name given')
-        res.status(400).send(movies)
+        res.status(400).send('must provide a name')
     } else {
         rollbar.error('movie already exists')
         res.status(400).send('that movie already exists')
