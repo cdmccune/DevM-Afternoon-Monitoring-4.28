@@ -43,6 +43,26 @@ rollbar.log('Hello world!')
 
 app.use(express.json())
 
+let movies = []
+
+app.post('/api/movie', (req,res)=> {
+    let {name} = req.body
+    name = name.trim()
+
+    const index = movies.findIndex(movieName => movieName === name)
+
+    if(index===-1 && name!==''){
+        movies.push(name)
+        rollbar.log(`Movie added successfully`, {author: "Curt"}, {type: "manual entry"})
+        res.status(200).send(movies)
+    } else if (name === "") {
+        rollbar.error('No name given')
+        res.status(400).send(movies)
+    } else {
+        rollbar.error('movie already exists')
+        res.status(400).send('that movie already exists')
+    }
+})
 
 
 const port = process.env.PORT || 4545

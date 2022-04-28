@@ -8,7 +8,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
 <body>
-    <h1>This is my page</h1>
-    
+    <h1>Movie list</h1>
+    <form>
+        <input type="text" placeholder="Type a movie">
+        <button>Add Movie</button>
+    </form>
+    <script>
+        const addForm = document.querySelector('form')
+        const nameInput = documnet.querySelector('input')
+        const container = document.querySelector('section')
+
+        function submitHandler(e) {
+            e.preventDefault()
+            axios.post('/api/movie', {name: nameInput.value})
+                .then( res => {
+                    container.innerHTML = ''
+                    nameInput.value = ''
+        
+
+                res.data.forEach(movieName => {
+                    container.innterHTML += `<p>${movieName}`
+                })
+            })
+            .catch(err => {
+                nameInput.value = ''
+
+                const notif = document.createElement('aside')
+                notif.innerHTML = `<p>${err.response.data}</p>
+                <button class='close'>close</button>`
+                document.body.appendChild(notif)
+
+                document.querySelectorAll('.close').forEach(btn => {
+                    btn.addEventListener('click', ()=> {
+                        e.target.parentNode.remove()
+                    })
+                })
+            })
+        }
+
+    </script>
 </body>
 </html>
