@@ -50,11 +50,11 @@ app.post('/api/movie', (req,res)=> {
     name = name.trim()
 
     const index = movies.findIndex(movieName => movieName === name)
-    console.log('hi')
 
     if(index===-1 && name!==''){
         movies.push(name)
         rollbar.log(`Movie added successfully`, {author: "Curt"}, {type: "manual entry"})
+        console.log(movies)
         res.status(200).send(movies)
     } else if (name === "") {
         rollbar.error('No name given')
