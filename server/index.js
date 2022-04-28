@@ -27,7 +27,7 @@ app.get('/criticalerror', () => {
     try{
         criticalerrors()
     } catch(error){
-        rollbar.criticalerror(error)
+        rollbar.critical(error)
     }})
 
 app.get('/warning', () => {
